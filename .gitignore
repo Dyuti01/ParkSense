@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+venv/
+.venv/
+env/
+
+# Environment
+.env
+*.env.local
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (too large for git)
+*.csv
+
+# Processed data cache
+backend/processed_data/
+
+# Logs
+*.log
+
+# Analysis scripts (temporary)
+analyze_data.py
+
+# Internal
+artifacts/
+
+/README.md
+/SETUP.md
+/frontend_uat_checklist.md
