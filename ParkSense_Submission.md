@@ -14,7 +14,7 @@ On-street illegal parking and spillover parking near commercial areas, metro sta
 ---
 
 ## 2. Solution Architecture & Technical Approach
-To solve this, we built **ParkSense AI**, an intelligence engine that transforms raw, isolated ticketing data into actionable geospatial intelligence. 
+To solve this, we built **ParkSense**, an intelligence engine that transforms raw, isolated ticketing data into actionable geospatial intelligence. 
 
 ```mermaid
 graph TB
@@ -84,7 +84,7 @@ However, we made a deliberate architectural choice **not** to use PostGIS for th
 Our solution moves away from simple statistical aggregations and employs a sophisticated, multi-stage spatial-temporal engine.
 
 ### 3.1. Grid Aggregation & Downsampling
-Running spatial clustering directly on 298,455 raw violation coordinates causes severe memory bottlenecks. We engineered a spatial preprocessing step that groups violations into discrete ~55m grid cells. Instead of calculating distances between hundreds of overlapping cars, we compute the "center of mass" for each cell. This reduces the clustering workload from 300K raw points to roughly 10K weighted grid centroids, accelerating the pipeline exponentially while maintaining high geometric fidelity.
+Running spatial clustering directly on 298,445 raw violation coordinates causes severe memory bottlenecks. We engineered a spatial preprocessing step that groups violations into discrete ~55m grid cells. Instead of calculating distances between hundreds of overlapping cars, we compute the "center of mass" for each cell. This reduces the clustering workload from 300K raw points to roughly 10K weighted grid centroids, accelerating the pipeline exponentially while maintaining high geometric fidelity.
 
 ### 3.2. Spatial Clustering: DBSCAN vs. K-Means
 To group these grid cells into actionable "Hotspots", we implemented **Density-Based Spatial Clustering of Applications with Noise (DBSCAN)**:
@@ -112,20 +112,7 @@ By using a base-e logarithmic scale (`np.log1p`), we ensure that extremely massi
 
 ---
 
-## 4. Challenges Faced & Technical Hurdles
+## 4. Future Scope
+* **Live Traffic APIs:** Ping routing APIs (e.g. Google Maps Routes, TomTom) to correlate parking density with real-time speed drops, converting CIS into a proven degradation metric.
 
-1. **Temporal Data Leakage in Normalization:**
-   * **Challenge:** Our initial CIS pipeline normalized violation volumes globally. This meant a night-time hotspot with 50 violations was evaluated against an afternoon hotspot with 4,000 violations, dropping the night-time score to zero and destroying its relative priority.
-   * **Solution:** We introduced isolated "Temporal Slice Cohorts." The pipeline dynamically scopes normalizations strictly within specific time slices (Morning, Afternoon, Evening, Night), ensuring that hotspots are scored and ranked accurately relative to their actual temporal context.
-2. **The "Proxy Score" Limitation vs. Measured Congestion:**
-   * **Challenge:** Our CIS mathematically infers congestion. While this heuristic is highly optimized, logical inference is not the same as empirical proof of a traffic jam.
-   * **Solution:** We structured our backend architecture to be modular. The pipeline is built to seamlessly swap to an external Real-Time Traffic API (like TomTom or Google Maps) in the future to cross-reference our spatial clusters against actual vehicle speed degradation.
-
----
-
-## 5. Future Scope & Roadmap
-
-To evolve ParkSense AI from a prototype into a production-ready smart city deployment, our technical roadmap includes:
-
-1. **Transition to Stream Processing:** Moving away from batch CSV uploads to real-time asynchronous data streaming (e.g., Kafka). The system will directly ingest JSON payloads from smart CCTV computer-vision cameras or handheld ticketing applications on the fly.
-2. **Integration of Live Traffic APIs:** Transitioning the CIS from an inferred "proxy score" to a "measured" impact score. The system will automatically ping live routing APIs upon cluster formation, correlating parking density with instantaneous local speed drops (e.g., algorithmically verifying a drop from 40km/h to 15km/h), providing mathematically proven traffic degradation metrics for automated, tactical dispatch.
+* Using cameras that detect the violations, our platform is the Central Command Center that ingests those millions of camera data points to automatically manage city-wide deployment.

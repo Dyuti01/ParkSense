@@ -45,6 +45,5 @@ analyze_data.py
 # Internal
 artifacts/
 
-/README.md
 /SETUP.md
 /frontend_uat_checklist.md
