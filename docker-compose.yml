@@ -3,7 +3,8 @@
 
 services:
   db:
-    image: postgres:17
+    # image: postgres:17
+    image: dyuti01/parksense-db:latest  # This image contains already has the dataset inserted
     platform: linux/amd64
     container_name: parksense-db
     environment:
@@ -12,12 +13,12 @@ services:
       POSTGRES_PASSWORD: parksense123
     ports:
       - "5433:5432"
-    volumes:
-      - parksense_data:/var/lib/postgresql/data
-      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    # volumes:
+    #   - parksense_data:/var/lib/postgresql/data
+    #   - ./backend/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d parksense"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d parksense" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -44,5 +45,5 @@ services:
       - backend
     restart: unless-stopped
 
-volumes:
-  parksense_data:
+# volumes:
+#   parksense_data:
