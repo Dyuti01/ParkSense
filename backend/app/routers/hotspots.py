@@ -43,7 +43,7 @@ async def get_hotspots(
     tier: Optional[str] = None,
     station: Optional[str] = None,
     sort_by: str = "congestion_impact_score",
-    limit: int = Query(default=200, le=500),
+    limit: int = Query(default=5000, le=10000),
     db: AsyncSession = Depends(get_db),
 ):
     """All hotspots with CIS scores, filterable by tier/station/time_slice."""

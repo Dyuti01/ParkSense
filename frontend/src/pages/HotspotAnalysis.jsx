@@ -37,7 +37,7 @@ export default function HotspotAnalysis() {
   async function loadData() {
     setLoading(true);
     try {
-      const params = { time_slice: timeSlice, limit: 200 };
+      const params = { time_slice: timeSlice, limit: 1000 };
       if (selectedTier) params.tier = selectedTier;
       if (selectedStation) params.station = selectedStation;
 
