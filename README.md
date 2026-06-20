@@ -5,20 +5,22 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 
-**ParkSense AI** is a high-performance geospatial intelligence engine designed to transform isolated, tabular parking tickets into actionable insights. By mathematically clustering violations and scoring their true congestion impact, it allows traffic authorities to shift from blind patrolling to data-driven, targeted dispatching.
-
----
-
 ## 🎯 The Problem
 On-street illegal parking chokes city intersections. Current enforcement is entirely reactive because tabular ticketing data provides no spatial context. Authorities cannot see where violations cluster or quantify their compounding impact, making it impossible to efficiently dispatch limited patrol resources or towing trucks.
 
-## 💡 The Solution
-We built an asynchronous machine learning pipeline that ingests bulk tabular parking data (300K+ records), mathematically groups them into physical hotspots, and scientifically scores each cluster's congestion severity based on volume and temporal concentration.
+## 💡Solution Overview
+
+>Using the geospatial information from bulk tabular parking tickets, mathematically clusters them into physical hotspots, and scores each cluster's severity based on volume and temporal concentration.
 
 **End-User Deliverables:**
-* **Interactive Geospatial Map:** Visualizes physical hotspot boundaries instantly.
-* **Temporal Heatmaps:** Reveals peak violation times (Hour × Day) for predictive patrol scheduling.
-* **Ranked Dispatch Lists:** Automatically ranks choke-points by severity, ensuring towing resources hit the most critical bottlenecks first.
+
+* **Interactive Geospatial Map:** Visualizes physical hotspot boundaries, allowing authorities to instantly see exactly where parking violations cluster.
+* **Temporal Heatmaps:** Reveals peak violation times (Hour × Day matrix) to enable predictive, data-driven patrol scheduling rather than random patrols.
+* **Ranked Dispatch Priority Lists:** Automatically ranks choke-points by severity, ensuring towing resources are sent to the most critical bottlenecks first.
+
+---
+
+>**Impact:** Transforms reactive enforcement into proactive, data-driven dispatching. By scientifically ranking hotspots, authorities can deploy limited towing resources directly to critical choke-points, improving traffic flow.
 
 ---
 
@@ -92,10 +94,7 @@ This ensures that while the base CIS prioritizes bottleneck severity, massive vo
 
 ---
 
-## 🚀 Quick Start (Docker Deployment)
-
-We have fully containerized the application for seamless, one-click evaluation. The database image is pre-seeded with ~298,445 processed violations and pre-calculated ML hotspots for instant demonstration.
-
+## 🚀 Quick Start (Using Docker)
 ### Prerequisites
 * Docker & Docker Compose installed.
 
