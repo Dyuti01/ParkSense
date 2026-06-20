@@ -63,11 +63,32 @@ graph TB
 
 ## 🧠 Core Intelligence & ML Algorithms
 
+Our solution moves away from simple statistical aggregations and employs a sophisticated, multi-stage spatial-temporal engine.
+
+### 1. Grid Downsampling & DBSCAN Clustering
 * **In-Memory Spatial Math (Zero PostGIS Required):** We bypass heavy PostGIS extensions for maximum portability. By utilizing Vectorized Bounding Boxes, Dynamic Longitude Shrinkage (accounting for Earth's curvature), and C++ Ball Trees (`metric="haversine"`), we achieved identical spatial mapping speeds purely in Python.
-* **Grid Downsampling & DBSCAN:** 300K coordinates are compressed into ~10K discrete 55m grid centroids to prevent memory exhaustion. We then use Density-Based Spatial Clustering of Applications with Noise (DBSCAN) to discover arbitrary-shaped clusters along winding arterial roads without predefined cluster counts.
-* **Congestion Impact Score (CIS):** Raw violation density does not equal congestion. Our CIS quantifies degradation using 4 normalized metrics: Volume, Severity, Temporal Concentration, and Recurrence.
-* **The Gini Coefficient:** If 50 violations hit in a sudden 2-hour window, our corrected Gini Coefficient array spikes to 1.0, exponentially raising the CIS to flag a critical, sudden choke-point.
-* **Logarithmic Priority Scaling:** Dispatch priority scales the CIS using a base-e logarithmic volume boost (`np.log1p`), ensuring massive volume outliers don't drown out smaller, severe choke-points.
+* **Algorithmic Downsampling:** 300,000 raw violation coordinates are mathematically compressed into ~10,000 discrete 55m grid centroids to prevent memory exhaustion, accelerating the pipeline exponentially while maintaining geometric fidelity.
+* **DBSCAN:** We use Density-Based Spatial Clustering of Applications with Noise (DBSCAN) to discover arbitrary-shaped clusters along winding arterial roads without predefined cluster counts.
+
+### 2. The Congestion Impact Score (CIS)
+A cluster of 10 cars parked on a narrow arterial road at 9:00 AM causes a massive bottleneck. Conversely, 10 cars parked on a wide residential street at 3:00 AM have zero impact. **Raw violation density does not equal congestion.**
+
+To solve this, we engineered the **Congestion Impact Score (CIS)**—a mathematical model acting as a highly optimized proxy for traffic degradation:
+
+$$ CIS = \min \left( 100, \sum (W_{volume}\cdot N_{volume} + W_{severity}\cdot N_{severity} + W_{temporal}\cdot N_{temporal} + W_{recurrence}\cdot N_{recurrence}) \times 100 \right) $$
+
+Where each $N$ is a min-max normalized component $[0,1]$ within the temporal cohort, and $W$ is the designated algorithmic weight:
+* **Volume ($N_{volume}$):** The raw density of illegal parking incidents.
+* **Severity ($N_{severity}$):** The base impact of the violation type itself (e.g., "Double Parking" is penalized heavier than "No Parking").
+* **Temporal Concentration ($N_{temporal}$):** Using a mathematically corrected **Gini Coefficient** array. If 50 violations hit in a sudden 2-hour window, the Gini coefficient spikes to 1.0, exponentially raising the CIS to flag a critical, sudden choke-point.
+* **Recurrence ($N_{recurrence}$):** Evaluates how many unique days the hotspot persists, penalizing chronic, habitual offenses over one-off anomalies.
+
+### 3. Logarithmic Priority Scaling
+While the CIS dictates the *severity* of the congestion, authorities still need a ranked list to dispatch patrol units. We engineered a **Priority Score** that scales the CIS using a base-e logarithmic volume boost:
+
+$$ Priority = CIS \times \left(0.5 + 0.5 \times \frac{\log(1 + V_{hotspot})}{\log(1 + V_{max})}\right) $$
+
+This ensures that while the base CIS prioritizes bottleneck severity, massive volume outliers are still appropriately pushed up the dispatch queue without drowning out smaller, highly-disruptive choke-points.
 
 ---
 
