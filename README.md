@@ -20,7 +20,7 @@ Using the geospatial information from bulk tabular parking tickets, mathematical
 
 ---
 
-**Impact:** Transforms reactive enforcement into proactive, data-driven. By ranking hotspots, authorities can deploy limited resources directly to critical choke-points, improving traffic flow.
+**Impact:** Transforms reactive enforcement into proactive, data-driven. By reasonable ranking of hotspots, authorities can deploy limited resources directly to critical choke-points, improving traffic flow.
 
 ---
 
