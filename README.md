@@ -10,7 +10,7 @@ On-street illegal parking chokes city intersections. Current enforcement is enti
 
 ## 💡Solution Overview
 
->Using the geospatial information from bulk tabular parking tickets, mathematically clusters them into physical hotspots, and scores each cluster's severity based on volume and temporal concentration.
+Using the geospatial information from bulk tabular parking tickets, mathematically clusters them into physical hotspots, and scores each cluster's severity based on volume and temporal concentration.
 
 **End-User Deliverables:**
 
@@ -20,7 +20,7 @@ On-street illegal parking chokes city intersections. Current enforcement is enti
 
 ---
 
->**Impact:** Transforms reactive enforcement into proactive, data-driven dispatching. By scientifically ranking hotspots, authorities can deploy limited towing resources directly to critical choke-points, improving traffic flow.
+**Impact:** Transforms reactive enforcement into proactive, data-driven dispatching. By scientifically ranking hotspots, authorities can deploy limited towing resources directly to critical choke-points, improving traffic flow.
 
 ---
 
