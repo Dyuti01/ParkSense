@@ -35,8 +35,8 @@ const Login = () => {
     <div className="login-container">
       <div className="login-box">
         <div className="login-header">
-          <div className="logo-icon"></div>
-          <h2>ParkSense</h2>
+          {/* <div className="logo-icon"></div> */}
+          <div className='park'><h2>Park</h2><h2 className="logo-name">Sense</h2></div>
           <p>Traffic Command Center Authentication</p>
         </div>
         

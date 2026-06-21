@@ -25,9 +25,11 @@ export default function Sidebar({ collapsed, onToggle }) {
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       {/* Brand */}
       <div className="sidebar-brand">
-        <div className="brand-icon">🅿️</div>
+        <div className="brand-icon">PS</div>
         <div className="brand-text">
-          <h1>ParkSense</h1>
+          <div className="name">
+            <h1>Park</h1><span className="logo-name">Sense</span>
+          </div>
           <span>Bangalore Traffic Intel</span>
         </div>
       </div>
