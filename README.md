@@ -82,11 +82,11 @@ $$ CIS = \min \left( 100, \sum (W_{volume}\cdot N_{volume} + W_{severity}\cdot N
 Where each $N$ is a min-max normalized component $[0,1]$ within the temporal cohort, and $W$ is the designated algorithmic weight:
 * **Volume ($N_{volume}$):** The raw density of illegal parking incidents.
 * **Severity ($N_{severity}$):** The base impact of the violation type itself (e.g., "Double Parking" is penalized heavier than "No Parking").
-* **Temporal Concentration ($N_{temporal}$):** Using a mathematically corrected **Gini Coefficient** array. If 50 violations hit in a sudden 2-hour window, the Gini coefficient spikes to 1.0, exponentially raising the CIS to flag a critical, sudden choke-point.
+* **Temporal Concentration ($N_{temporal}$):** Using **Gini Coefficient**. If 50 violations hit in a sudden 2-hour window, the Gini coefficient spikes to 1.0, exponentially raising the CIS to flag a critical, sudden choke-point.
 * **Recurrence ($N_{recurrence}$):** Evaluates how many unique days the hotspot persists, penalizing chronic, habitual offenses over one-off anomalies.
 
 ### 3. Logarithmic Priority Scaling
-While the CIS dictates the *severity* of the congestion, authorities still need a ranked list to dispatch patrol units. We engineered a **Priority Score** that scales the CIS using a base-e logarithmic volume boost:
+While the CIS dictates the *severity* of the congestion, authorities still need a ranked list to dispatch patrol units. We engineered a **Priority Score** that scales the CIS using a logarithmic volume boost:
 
 $$ Priority = CIS \times \left(0.5 + 0.5 \times \frac{\log(1 + V_{hotspot})}{\log(1 + V_{max})}\right) $$
 
