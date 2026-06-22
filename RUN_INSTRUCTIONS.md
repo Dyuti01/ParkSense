@@ -17,7 +17,7 @@ The entire architecture (PostgreSQL, FastAPI Backend, React Frontend) has been c
    ```
 3. Docker will automatically pull our custom, pre-seeded PostgreSQL image (`dyuti01/parksense-db:latest`) containing all ~298,445 processed violations and ML hotspots, and then build the Backend and Frontend.
 4. Once the containers are running:
-   * **Frontend Dashboard:** Available at [http://localhost:3000](http://localhost:3000)
+   * **Frontend Dashboard:** Available at [http://localhost](http://localhost) (port number is default 80 for frontend)
    * **Backend API Docs:** Available at [http://localhost:8000/docs](http://localhost:8000/docs)
 5. *Note: If you encounter port conflicts, ensure ports `3000`, `8000`, and `5433` are free on your host machine.*
 

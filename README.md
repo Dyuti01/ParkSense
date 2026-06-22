@@ -106,7 +106,7 @@ This ensures that while the base CIS prioritizes bottleneck severity, massive vo
    ```
 3. Docker will automatically pull our custom, pre-seeded PostgreSQL image (`dyuti01/parksense-db:latest`) and build the FastAPI Backend and React Frontend.
 4. **View the Application:**
-   * **Dashboard:** [http://localhost:3000](http://localhost:3000)
+   * **Dashboard:** [http://localhost](http://localhost) (port number is default 80 for frontend)
    * **API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
 
 *Note: You do not need to upload the dataset CSV. The data is already populated in the database image for demonstration purposes!*
