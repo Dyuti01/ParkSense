@@ -97,7 +97,7 @@ A cluster of 10 cars parked on a narrow arterial road at 9:00 AM causes a massiv
 
 To solve this, we engineered the **Congestion Impact Score (CIS)**—a heuristic mathematical model acting as a highly optimized proxy for traffic degradation.
 
-$$ CIS = \min \left( 100, \sum (W_{volume}\cdot N_{volume} + W_{severity}\cdot N_{severity} + W_{temporal}\cdot N_{temporal} + W_{recurrence}\cdot N_{recurrence}) \times 100 \right) $$
+$$ CIS = \min \left( 100, (W_{volume}\cdot N_{volume} + W_{severity}\cdot N_{severity} + W_{temporal}\cdot N_{temporal} + W_{recurrence}\cdot N_{recurrence}) \times 100 \right) $$
 
 Where each $N$ is a min-max normalized component $[0,1]$ within the temporal cohort, and $W$ is the designated algorithmic weight:
 * **Volume ($N_{volume}$):** The raw density of illegal parking incidents.
